@@ -1,11 +1,3 @@
-zee:
-  user.present:
-    - fullname: Zee Spencer
-    - shell: /bin/bash
-    - groups:
-      - rvm
-      - sudo
-
 rvm:
   group:
     - present
