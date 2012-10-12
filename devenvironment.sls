@@ -2,8 +2,9 @@ zee:
   user.present:
     - fullname: Zee Spencer
     - shell: /bin/bash
-    - require:
-      - group: rvm
+    - groups:
+      - rvm
+      - sudo
 
 rvm:
   group:
@@ -55,23 +56,3 @@ mri-deps:
       - bison
       - subversion
       - ruby
-
-
-ruby-1.9.2:
-  rvm.installed:
-    - default: True
-    - runas: rvm
-    - require:
-      - pkg: rvm-deps
-      - pkg: mri-deps
-      - user: rvm
-
-
-ruby-1.9.3:
-  rvm.installed:
-    - default: True
-    - runas: rvm
-    - require:
-      - pkg: rvm-deps
-      - pkg: mri-deps
-      - user: rvm
