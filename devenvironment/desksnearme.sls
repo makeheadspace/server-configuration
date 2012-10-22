@@ -3,3 +3,4 @@ desksnearme-deps:
     - names:
       - imagemagick
       - postgresql
+      - sphinxsearch

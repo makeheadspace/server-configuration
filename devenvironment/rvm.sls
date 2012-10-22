@@ -7,7 +7,6 @@ rvm:
     - require:
       - group: rvm
 
-
 rvm-deps:
   pkg.installed:
     - names:
@@ -48,3 +47,29 @@ mri-deps:
       - bison
       - subversion
       - ruby
+
+ruby-1.9.3:
+  rvm.installed:
+    - default: True
+    - runas: rvm
+    - require:
+      - pkg: rvm-deps
+      - pkg: mri-deps
+      - user: rvm
+
+global:
+  rvm.gemset_present:
+    - ruby: ruby-1.9.3
+    - runas: rvm
+    - require:
+      - rvm: ruby-1.9.3
+
+bundler:
+  gem.installed:
+    - runas: rvm
+    - ruby: ruby-1.9.3@global
+
+homesick:
+  gem.installed:
+    - runas: rvm
+    - ruby: ruby-1.9.3@global

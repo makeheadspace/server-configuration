@@ -5,5 +5,22 @@ zee:
     - groups:
       - rvm
       - sudo
-    - require:
-      - group: rvm
+  postgres_user.present:
+    - createdb: true
+    - superuser: true
+    - runas: postgres
+  file.directory:
+    - name: /home/zee/Projects
+    - user: zee
+    - group: zee
+
+common-deps:
+  pkg.installed:
+    - names:
+      - postgresql
+      - xvfb
+      - firefox
+      - tmux
+      - vim
+
+
