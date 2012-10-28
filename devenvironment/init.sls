@@ -17,10 +17,8 @@ zee:
 common-deps:
   pkg.installed:
     - names:
-      - postgresql
       - xvfb
       - firefox
       - tmux
       - vim
-
-
+      - nodejs
