@@ -22,3 +22,4 @@ common-deps:
       - tmux
       - vim
       - nodejs
+      - gnuplot
