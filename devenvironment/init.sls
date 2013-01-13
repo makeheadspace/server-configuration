@@ -1,10 +1,7 @@
 zee:
   user.present:
-    - fullname: Zee Spencer
-    - shell: /bin/bash
     - groups:
       - rvm
-      - sudo
   postgres_user.present:
     - createdb: true
     - superuser: true
@@ -19,7 +16,5 @@ common-deps:
     - names:
       - xvfb
       - firefox
-      - tmux
-      - vim
       - nodejs
       - gnuplot
