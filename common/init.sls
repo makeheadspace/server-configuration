@@ -8,6 +8,8 @@ zee:
   user.present:
     - fullname: Zee Spencer
     - shell: /bin/bash
-    - groups:
+    - optional_groups:
       - sudo
       - wheel
+      - rvm
+    - remove_groups: false

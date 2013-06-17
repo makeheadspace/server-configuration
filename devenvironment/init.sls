@@ -1,8 +1,9 @@
-zee:
-  user.present:
-    - groups:
-      - rvm
+devenvironment:
+  postgres_database.present:
+    - name: zee
+    - runas: postgres
   postgres_user.present:
+    - name: zee
     - createdb: true
     - superuser: true
     - runas: postgres

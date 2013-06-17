@@ -1,12 +1,12 @@
 base:
   'roles:devenvironment':
     - match: grain
+    - common
     - devenvironment
     - devenvironment.postgres
     - devenvironment.rvm
     - devenvironment.desksnearme
-    - common
   'roles:gitserver':
     - match: grain
-    - gitserver
     - common
+    - gitserver
