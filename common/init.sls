@@ -6,7 +6,7 @@ vim:
       - htop
 zee:
   user.present:
-    - fullname: Zee Spencer
+    - fullname: "Zee Spencer"
     - shell: /bin/bash
     - optional_groups:
       - sudo
