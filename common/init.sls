@@ -13,3 +13,8 @@ zee:
       - wheel
       - rvm
     - remove_groups: false
+    file.managed:
+      - source: salt://common/vimrc
+      - name: /home/zee/.vimrc
+      - user: zee
+      - group: zee
