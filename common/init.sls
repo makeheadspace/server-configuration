@@ -1,9 +1,10 @@
-vim:
+commonpkgs:
   pkg.installed:
     - pkgs:
       - vim
       - tmux
       - htop
+
 zee:
   user.present:
     - fullname: "Zee Spencer"
@@ -13,8 +14,8 @@ zee:
       - wheel
       - rvm
     - remove_groups: false
-    file.managed:
-      - source: salt://common/vimrc
-      - name: /home/zee/.vimrc
-      - user: zee
-      - group: zee
+  file.managed:
+    - source: salt://common/vimrc
+    - name: /home/zee/.vimrc
+    - user: zee
+    - group: zee
