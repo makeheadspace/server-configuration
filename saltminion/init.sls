@@ -1,5 +1,6 @@
 salt-minion:
-  pkg.latest
+  pkg.latest:
+    - name: salt-minion
   service.running:
     - watch:
       - file: /etc/salt/minion
