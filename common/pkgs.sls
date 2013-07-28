@@ -4,3 +4,4 @@ common-pkgs:
       - vim
       - tmux
       - htop
+      - git
