@@ -1,5 +1,6 @@
 include:
   - users.zee.ssh
+
 zee:
   user.present:
     - fullname: "Zee Spencer"
@@ -13,5 +14,9 @@ zee:
 /home/zee/.vimrc:
   file.managed:
     - name: /home/zee/.vimrc
+    - user: zee
+    - group: zee
     - source: salt://users/zee/vimrc
     - replace: false
+    - require:
+      - user: zee
