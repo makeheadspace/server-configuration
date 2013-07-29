@@ -38,13 +38,23 @@ discourse:
       - eval "$(rbenv init -)"
   service.running:
     - name: discourse
-    - watch:
-      - cmd: discourse-install-service
     - require:
-      # - service: postgresql-9.2 # This fails on centos 6.4 :(
+      - file: /etc/init/discourse.conf
+      - service: postgresql-9.2 # This fails on centos 6.4 :(
       - service: redis
       - service: nginx
 
+/home/discourse:
+  file.directory:
+    - mode: 711
+    - require: 
+      - user: discourse
+
+/home/discourse/application/public:
+  file.directory:
+    - mode: 755
+    - recurse:
+      - mode
 
 /home/discourse/application/.env:
   file.managed:
@@ -96,11 +106,18 @@ discourse:
     - require:
       - git: discourse
 
-discourse-install-service:
-  cmd.wait:
-    - name: cp -r /home/discourse/init/* /etc/init/
-    - watch:
-      - cmd: discourse-foreman
+/etc/nginx/conf.d/discourse.conf:
+  file.managed:
+    - user: discourse
+    - group: discourse
+    - source: salt://apps/discourse/nginx-conf
+
+extend:
+  nginx:
+    service:
+      - watch:
+        - file: /etc/nginx/conf.d/discourse.conf
+
 
 ruby-2.0.0-p247:
   rbenv.installed:
@@ -148,12 +165,11 @@ discourse-foreman:
   cmd.wait:
     - cwd: /home/discourse/application
     - user: discourse
-    - name: gem install foreman && rbenv rehash && foreman export upstart ~/init -a discourse -l ~/logs -p 4000
-    - watch:
-      - cmd: discourse-bundler
-      - file: /home/discourse/application/config/redis.yml
-      - file: /home/discourse/application/.env
-      - file: /home/discourse/application/config/database.yml
-      - file: /home/discourse/application/Procfile
-      - file: /home/discourse/application/config/environments/production.rb
-      - file: /home/discourse/application/config/unicorn.conf.rb
+    - name: gem install foreman
+
+/etc/init/discourse.conf:
+  file.managed:
+    - source: salt://apps/discourse/upstart
+    - require:
+      - cmd: discourse-foreman
+
