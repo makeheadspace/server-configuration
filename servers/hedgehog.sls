@@ -8,3 +8,5 @@
 /etc/sudoers:
   file.append:
     - text: "%wheel        ALL=(ALL)       ALL"
+git:
+  pkg.installed

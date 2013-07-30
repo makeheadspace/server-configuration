@@ -41,11 +41,11 @@ discourse:
       - rbenv: ruby-2.0.0-p247
       - pkg: discourse-deps
       - file: /etc/init/discourse.conf
-      - cmd: discourse-bundler
+      - cmd: discourse-package-assets
+      - cmd: gem install foreman
       - service: postgresql-9.2
       - service: redis
       - service: nginx
-      - cmd: gem install foreman
 
 /home/discourse:
   file.directory:
@@ -159,8 +159,27 @@ discourse-bundler:
     - name: gem install bundler && rbenv rehash && bundle install --deployment --without test
     - require:
       - file: /home/discourse/.bundle/config
+      - rbenv: ruby-2.0.0-p247
     - watch:
       - git: discourse
+
+discourse-package-assets:
+  cmd.wait:
+    - cwd: /home/discourse/application
+    - env: 
+      - SECRET_TOKEN: {{ pillar["discourse"]["secret_token"] }}
+      - RAILS_ENV: production
+    - user: discourse
+    - name: bundle exec rake db:migrate assets:precompile
+    - require:
+      - file: /home/discourse/application/config/unicorn.conf.rb
+      - file: /home/discourse/application/config/database.yml
+      - file: /home/discourse/application/Procfile
+      - file: /home/discourse/application/config/redis.yml
+      - file: /home/discourse/application/config/environments/production.rb
+      - file: /home/discourse/application/.env
+    - watch:
+      - cmd: discourse-bundler
 
 gem install foreman:
   cmd.wait:
