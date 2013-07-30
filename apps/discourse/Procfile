@@ -1,3 +1,2 @@
 web: bundle exec unicorn -p $PORT -c ./config/unicorn.conf.rb
-sidekiq: bundle exec sidekiq -e $RAILS_ENV
-clockwork: bundle exec clockwork config/clock.rb
+sidekiq: EMBED_CLOCKWORK=1 bundle exec sidekiq -e $RAILS_ENV
