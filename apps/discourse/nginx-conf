@@ -6,7 +6,7 @@ server {
 
   server_name forum.makeheadspace.com;
 
-  root /home/discourse/discourse/application/public;
+  root /home/discourse/application/public;
 
   location / {
 

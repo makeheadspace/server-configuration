@@ -19,30 +19,33 @@ discourse:
     - superuser: true
     - require:
       - user: discourse
+      - service: postgresql-9.2
   git.latest:
     - name: https://github.com/discourse/discourse.git
     - runas: discourse
     - rev: v0.9.5.1
     - target: /home/discourse/application
     - require:
-      - rbenv: ruby-2.0.0-p247
-      - pkg: discourse-deps
       - user: discourse
   file.append:
     - runas: discourse
     - name: /home/discourse/.bashrc
     - require:
+      - rbenv: ruby-2.0.0-p247
       - user: discourse
     - text:
       - PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin/:$PATH
       - eval "$(rbenv init -)"
   service.running:
-    - name: discourse
     - require:
+      - rbenv: ruby-2.0.0-p247
+      - pkg: discourse-deps
       - file: /etc/init/discourse.conf
-      - service: postgresql-9.2 # This fails on centos 6.4 :(
+      - cmd: discourse-bundler
+      - service: postgresql-9.2
       - service: redis
       - service: nginx
+      - cmd: gem install foreman
 
 /home/discourse:
   file.directory:
@@ -55,6 +58,8 @@ discourse:
     - mode: 755
     - recurse:
       - mode
+    - require:
+      - git: discourse
 
 /home/discourse/application/.env:
   file.managed:
@@ -137,11 +142,7 @@ discourse-deps:
       - libxslt-devel
       - postgresql92-devel
       - postgresql92-contrib
-      - gperftools-libs
-# For some reason this fails, even though the package exists.
-#      - gcc-g++
-    - require:
-      - pkg: postgresql92-server
+      - gcc-c++
 
 /home/discourse/.bundle/config:
   file.managed:
@@ -161,15 +162,12 @@ discourse-bundler:
     - watch:
       - git: discourse
 
-discourse-foreman:
+gem install foreman:
   cmd.wait:
-    - cwd: /home/discourse/application
     - user: discourse
-    - name: gem install foreman
+    - watch:
+      - file: /home/discourse/.bashrc
 
 /etc/init/discourse.conf:
   file.managed:
     - source: salt://apps/discourse/upstart
-    - require:
-      - cmd: discourse-foreman
-
