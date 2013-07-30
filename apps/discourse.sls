@@ -23,7 +23,7 @@ discourse:
   git.latest:
     - name: https://github.com/discourse/discourse.git
     - runas: discourse
-    - rev: v0.9.5.1
+    - rev: v0.9.5.2
     - target: /home/discourse/application
     - require:
       - user: discourse
