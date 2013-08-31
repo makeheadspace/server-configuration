@@ -4,6 +4,7 @@ include:
 zee:
   user.present:
     - fullname: "Zee Spencer"
+    - password: '{{ pillar["zee"]["password_shadow"] }}'
     - shell: /bin/bash
     - optional_groups:
       - sudo
