@@ -1,4 +1,4 @@
-master: prime.makeheadspace.com
+master: salt.makeheadspace.com
 
 grains:
   roles:
