@@ -1,0 +1,46 @@
+upstream discourse {
+  server 127.0.0.1:4000;
+}
+
+server {
+
+  server_name forum.makeheadspace.com;
+
+  root /home/discourse/application/public;
+
+  location / {
+
+    proxy_set_header  X-Real-IP  $remote_addr;
+    proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header  X-Forwarded-Proto $scheme;
+    proxy_set_header  Host $http_host;
+
+    if (!-f $request_filename) {
+      proxy_pass http://discourse;
+      break;
+    }
+
+  }
+
+
+  location ~ ^/t\/[0-9]+\/[0-9]+\/avatar {
+    expires 1d;
+    add_header Cache-Control public;
+    add_header ETag "";
+  }
+
+  location ~ ^/(assets|uploads)/ {
+    expires 1y;
+    add_header Cache-Control public;
+    add_header ETag "";
+  }
+
+  ## optional upload anti-hotlinking rules
+  #location ~ ^/uploads/ {
+  #  valid_referers none blocked mysite.com *.mysite.com;
+  #  if ($invalid_referer) {
+  #    return 403;
+  #  }
+  #}
+
+}

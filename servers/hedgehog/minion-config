@@ -1,0 +1,8 @@
+master: prime.makeheadspace.com
+
+grains:
+  roles:
+    - discourseserver
+    - saltminion
+  provider: digitalocean
+  shell: /bin/bash
