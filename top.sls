@@ -3,6 +3,7 @@ base:
     - match: grain
     - common.pkgs
     - users.zee
+    - users.strand
     - devenvironment
     - devenvironment.postgres
     - devenvironment.rvm
@@ -21,4 +22,5 @@ base:
     - saltminion
   'nodename:hedgehog.makeheadspace.com':
     - match: grain
+    - users.strand
     - servers.hedgehog
