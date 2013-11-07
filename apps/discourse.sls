@@ -3,7 +3,7 @@ include:
   - redis
   - rbenv
   - postgresql92-server
- 
+
 discourse:
   user.present:
     - fullname: "Discourse Server"
