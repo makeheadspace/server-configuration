@@ -1,0 +1,14 @@
+pre-start script
+
+bash << "EOF"
+  mkdir -p /home/authnmakeheadspace/logs
+  chown -R authnmakeheadspace /home/authnmakeheadspace/logs
+EOF
+
+end script
+
+start on runlevel [2345]
+stop on runlevel [016]
+respawn
+
+exec su - authnmakeheadspace -c 'cd /home/authnmakeheadspace/application && bin/serve > /home/authnmakeheadspace/logs/log 2>&1'

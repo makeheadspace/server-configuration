@@ -32,6 +32,12 @@ authnmakeheadspace:
     - text:
       - PATH=$HOME/.rbenv/shims:$HOME/.rbenv/bin/:$PATH
       - eval "$(rbenv init -)"
+  service.running:
+    - require:
+      - file: /etc/init/authnmakeheadspace.conf
+      - cmd: authnmakeheadspace-migrate-database
+      - service: postgresql-9.2
+
 
 authnmakeheadspace-ruby:
   rbenv.installed:
@@ -81,3 +87,7 @@ authnmakeheadspace-migrate-database:
     - template: jinja
     - require:
       - git: authnmakeheadspace
+
+/etc/init/authnmakeheadspace.conf:
+  file.managed:
+    - source: salt://apps/authnmakeheadspace/upstart
