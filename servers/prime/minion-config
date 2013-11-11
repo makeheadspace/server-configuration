@@ -1,0 +1,10 @@
+master: salt.makeheadspace.com
+
+id: prime.makeheadspace.com
+
+grains:
+  roles:
+    - gitserver
+    - saltmaster
+    - ircclient
+  provider: prgmr.com

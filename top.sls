@@ -20,7 +20,12 @@ base:
   'roles:saltminion':
     - match: grain
     - saltminion
+  'roles:ircclient':
+    - match: grain
+    - ircclient
   'nodename:hedgehog.makeheadspace.com':
     - match: grain
-    - users.strand
     - servers.hedgehog
+  'nodename:prime.makeheadspace.com':
+    - match: grain
+    - servers.prime
