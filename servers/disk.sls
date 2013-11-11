@@ -3,4 +3,4 @@ include:
 
 /etc/salt/minion:
   file.managed:
-    - source: salt://servers/hedgehog/minion-config
+    - source: salt://servers/disk/minion-config

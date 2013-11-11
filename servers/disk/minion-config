@@ -1,0 +1,6 @@
+master: salt.makeheadspace.com
+
+id: disk.makeheadspace.com
+
+grains:
+  provider: backupsy.com
