@@ -1,0 +1,55 @@
+#!/bin/bash
+#
+# processname:  btsync-{{ user }}
+# config: /home/{{ user }}/.btsync-conf
+#
+
+# source function library
+. /etc/rc.d/init.d/functions
+
+RETVAL=0
+
+start() {
+  echo -n $"Starting btsync-{{ user }}: "
+    daemon --user {{user}} /usr/local/bin/btsync --config /home/{{ user }}/.btsync-config
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch /var/lock/subsys/btsync-{{ user }}
+}
+
+stop() {
+  echo -n $"Stopping btsync-{{ user }}: "
+    killproc -p /home/{{user}}/.sync/sync.pid
+    echo
+    [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/btsync-{{ user }}
+}
+
+restart() {
+  stop
+    start
+}
+
+case "$1" in
+start)
+start
+;;
+stop) 
+stop
+;;
+restart|force-reload|reload)
+restart
+;;
+condrestart)
+[ -f /var/lock/subsys/btsync-{{ user }} ] && restart
+;;
+status)
+status btsync-{{ user }}
+RETVAL=$?
+;;
+*)
+echo $"Usage: $0 {start|stop|status|restart|reload|force-reload|condrestart}"
+exit 1
+esac
+
+exit $RETVAL
+
