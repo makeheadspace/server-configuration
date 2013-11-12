@@ -3,6 +3,7 @@
 btsync-{{ user['name'] }}-user: 
   user.present:
     - name: {{ user['name'] }}
+    - remove_groups: false
 
 /etc/init.d/btsync-{{ user['name']}}:
   file.managed:

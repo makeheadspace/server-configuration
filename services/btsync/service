@@ -19,7 +19,7 @@ start() {
 
 stop() {
   echo -n $"Stopping btsync-{{ user }}: "
-    killproc btsync-{{ user }}
+    killproc -p /home/{{user}}/.sync/sync.pid
     echo
     [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/btsync-{{ user }}
 }
