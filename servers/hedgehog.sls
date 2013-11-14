@@ -1,5 +1,6 @@
 include:
   - common
+  - apps.authnmakeheadspace
 
 /etc/salt/minion:
   file.managed:
