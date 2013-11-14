@@ -1,6 +1,7 @@
 include: 
   - postgresql92-server
   - rbenv
+  - nginx
 
 authnmakeheadspace:
   user.present:
@@ -56,7 +57,7 @@ authnmakeheadspace-bundler:
     - name: gem install bundler && rbenv rehash && bundle install --deployment --without test,development
     - require:
       - file: /home/authnmakeheadspace/.bundle/config
-      - rbenv: ruby-2.0.0-p247
+      - rbenv: authnmakeheadspace-ruby
     - watch:
       - git: authnmakeheadspace
 
@@ -91,3 +92,15 @@ authnmakeheadspace-migrate-database:
 /etc/init/authnmakeheadspace.conf:
   file.managed:
     - source: salt://apps/authnmakeheadspace/upstart
+
+/etc/nginx/conf.d/authnmakeheadspace.conf:
+  file.managed:
+    - user: authnmakeheadspace
+    - group: authnmakeheadspace
+    - source: salt://apps/authnmakeheadspace/nginx-conf
+
+extend:
+  nginx:
+    service:
+      - watch:
+        - file: /etc/nginx/conf.d/authnmakeheadspace.conf
