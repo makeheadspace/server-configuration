@@ -17,3 +17,14 @@ common-pkgs:
       - tmux
       - htop
       - git
+
+ntpd:
+  service:
+    - running
+    - enable: True
+
+time-sync:
+  pkg.installed:
+    - pkgs:
+      - ntp
+      - ntpdate

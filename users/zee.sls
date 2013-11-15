@@ -6,10 +6,8 @@ zee:
     - fullname: "Zee Spencer"
     - password: '{{ pillar["zee"]["password_shadow"] }}'
     - shell: /bin/bash
-    - optional_groups:
-      - sudo
+    - groups:
       - wheel
-      - rvm
     - remove_groups: false
 
 /home/zee/.vimrc:
