@@ -1,4 +1,0 @@
-SECRET_TOKEN={{ pillar["discourse"]["secret_token"] }}
-RAILS_ENV=production
-RUBY_GC_MALLOC_LIMIT=90000000
-PORT=4000

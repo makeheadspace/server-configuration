@@ -1,12 +1,12 @@
-upstream authnmakeheadspace {
-  server 127.0.0.1:5000;
+upstream {{ app }} {
+  server 127.0.0.1:{{ port }};
 }
 
 server {
 
-  server_name authn.makeheadspace.com;
+  server_name {{ hostname }};
 
-  root /home/authnmakeheadspace/application/public;
+  root /home/{{ app }}/application/public;
 
   location / {
 
@@ -16,7 +16,7 @@ server {
     proxy_set_header  Host $http_host;
 
     if (!-f $request_filename) {
-      proxy_pass http://authnmakeheadspace;
+      proxy_pass http://{{ app }};
       break;
     }
 
@@ -34,13 +34,4 @@ server {
     add_header Cache-Control public;
     add_header ETag "";
   }
-
-  ## optional upload anti-hotlinking rules
-  #location ~ ^/uploads/ {
-  #  valid_referers none blocked mysite.com *.mysite.com;
-  #  if ($invalid_referer) {
-  #    return 403;
-  #  }
-  #}
-
 }
