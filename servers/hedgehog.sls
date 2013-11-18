@@ -1,6 +1,6 @@
 include:
   - common
-  - apps.authnmakeheadspace
+  - rack-app
 
 /etc/salt/minion:
   file.managed:
