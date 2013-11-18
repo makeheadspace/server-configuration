@@ -1,2 +1,3 @@
----
 BUNDLE_BUILD__PG: --with-pg-config=/usr/pgsql-9.2/bin/pg_config
+BUNDLE_WITHOUT: test:development
+BUNDLE_BIN: true

@@ -1,0 +1,14 @@
+pre-start script
+
+bash << "EOF"
+  mkdir -p /home/{{ app }}/logs
+  chown -R {{ app }} /home/{{ app }}/logs
+EOF
+
+end script
+
+start on runlevel [2345]
+stop on runlevel [016]
+respawn
+
+exec su - {{ app }} -c 'cd /home/{{ app }}/application && {{ command }} > /home/{{ app }}/logs/log 2>&1'
