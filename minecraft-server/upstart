@@ -1,0 +1,10 @@
+pre-start script
+  mkdir -p /home/minecraft_server/logs
+  chown -R minecraft_server /home/minecraft_server/logs
+end script
+
+start on runlevel [2345]
+stop on runlevel [016]
+respawn
+
+exec su - minecraft_server -c 'java -Xmx1024M -Xms1024M -jar /home/minecraft_server/minecraft_server.jar > /home/minecraft_server/logs/log 2>&1'

@@ -1,6 +1,6 @@
 include:
   - common
-  - rack-app
+  - minecraft-server
 
 /etc/salt/minion:
   file.managed:

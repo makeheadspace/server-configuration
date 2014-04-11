@@ -2,8 +2,7 @@ master: salt.makeheadspace.com
 
 grains:
   roles:
-    - discourseserver
-    - authnmakeheadspaceserver
+    - minecraft-server
     - saltminion
   provider: digitalocean
   shell: /bin/bash
